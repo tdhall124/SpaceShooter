@@ -20,10 +20,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _tripleShotPrefab;
  
     private bool _isTripleShotActive = false;
-    //private bool _isSpeedBoostActive = false;
+    
     private bool _isShieldActive = false;
 
-    // shield visualizer
     [SerializeField] private GameObject _shieldVisualizer;
 
     [SerializeField] private int score = 0;
@@ -32,8 +31,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject _leftEngineFire;
     [SerializeField] private GameObject _rightEngineFire;
-    //private GameObject[] _engineFires;
-    //int _randomPick;
 
     [SerializeField] private AudioSource _audioSourceLaser;
     [SerializeField] private AudioSource _audioSourceExplosion;
@@ -44,8 +41,6 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
 
         if (_spawnManager == null) Debug.LogError("The SpawnManager is NULL.");
-
-        //_shieldVisualizer = this.transform.GetComponentInChildren<Shield>();
 
         if (_shieldVisualizer == null) Debug.LogError("The Shield Visualizer is NULL.");
 
@@ -60,17 +55,10 @@ public class Player : MonoBehaviour
         if (_rightEngineFire == null)
             Debug.LogError("The Right_Engine_Fire is NULL.");
 
-        //_leftEngineFire = transform.Find("Left_Engine_Fire").gameObject;
-        //_rightEngineFire = transform.Find("Right_Engine_Fire").gameObject;
-        //_engineFires = new GameObject[] { _leftEngineFire, _rightEngineFire };
-        //_randomPick = -1;
-        //_audioSourceLaser = GetComponent<AudioSource>();
-        //_audioSourceLaser.clip.name
         if (_audioSourceLaser == null)
             Debug.LogError("Player::Start(): Laser Shot audio source is NULL.");
         if (_audioSourceExplosion == null)
             Debug.LogError("Player::Start(): Explosion audio source is NULL.");
-       
     }
     void Update()
     {
@@ -143,7 +131,6 @@ public class Player : MonoBehaviour
             _audioSourceExplosion.Play();
             Destroy(this.gameObject);
         }
-        
     }
     public void TripleShotActive()
     {
@@ -157,14 +144,12 @@ public class Player : MonoBehaviour
     }
     public void SpeedBoostActive()
     {
-        //_isSpeedBoostActive = true;
         _speed *= _speedBoost;
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
     IEnumerator SpeedBoostPowerDownRoutine()
     {
         yield return new WaitForSeconds(5);
-        //_isSpeedBoostActive = false;
         _speed /= _speedBoost;
     }
     public void ShieldActive()

@@ -16,10 +16,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
 
     [SerializeField] private float _fireRate = 3.0f;
-    //value we are going to use to compare Time.time which is how long the game has been running
+    //value we are going to use to compare Time.time which is
+    //how long the game has been running
+  
     private float _canFire = -1;
-
-    private Vector3 _laserOffset;
 
     private void Start()
     {
@@ -33,8 +33,6 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Enemy::Start(): Audio Source Explosion clip is NULL.");
         if (_audioSourceLaser == null)
             Debug.LogError("Enemy::Start(): Audio Source Laser is NULL.");
-
-        _laserOffset = new Vector3(0, 1.05f, 0);
     }
     void Update()
     {

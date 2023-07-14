@@ -9,7 +9,6 @@ public class PowerUp : MonoBehaviour
     //0=triple shot,1=speed,2=shield
     [SerializeField] private int powerupID;
 
-    //[SerializeField] AudioSource _powerupSource;
     [SerializeField] private AudioClip _powerupClip;
 
     void Update()
