@@ -37,10 +37,20 @@ public class PowerUp : MonoBehaviour
                         player.SpeedBoostActive();
                         break;
                     case 2:
+                        Debug.Log("PowerUp: player.ShieldActive()");
                         player.ShieldActive();
                         break;
+                    case 3:
+                        player.AmmoReload();
+                        break;
+                    case 4:
+                        player.HealthBoost();
+                        break;
+                    case 5:
+                        player.MagicFlameBombActive();
+                        break;
                     default:
-                        Debug.Log("Default Value");
+                        Debug.Log("PowerUp::OnTriggerEnter(): Default powerup ID taken. No powerup found.");
                         break;
                 }
                 

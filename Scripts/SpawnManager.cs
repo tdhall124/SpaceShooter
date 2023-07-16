@@ -10,10 +10,6 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning = false;
 
-    void Start()
-    {
-        
-    }
     public void StartSpawning()
     {
         StartCoroutine(SpawnEnemyRoutine());
@@ -31,17 +27,19 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
         }
     }
+
     IEnumerator SpawnPowerUpRoutine()
     {
         yield return new WaitForSeconds(3.0f);
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            int randomPowerUp = Random.Range(0, 3);
+            int randomPowerUp = Random.Range(0, 6);
             Instantiate(powerups[randomPowerUp], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
     }
+
     public void OnPlayerDeath()
     {
         _stopSpawning = true;

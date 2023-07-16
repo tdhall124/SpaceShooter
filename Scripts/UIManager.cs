@@ -9,30 +9,42 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private Sprite[] _livesSprites;
     [SerializeField] private Image _livesImage;
+
     [SerializeField] private TMP_Text _gameOverText;
     [SerializeField] private TMP_Text _restartText;
+    [SerializeField] private TMP_Text _shotsText;
+
+    [SerializeField] private int _maxShots = 15;
 
     void Start()
     {
         _scoreText.text = "Score: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
+        _shotsText.text = "Shots: " + _maxShots;
     }
    
     public void UpdateScoreText(int score)
     {
         _scoreText.text = "Score: " + score;
     }
+
+    public void UpdateShotsText(int shots)
+    {
+        _shotsText.text = "Shots: " + shots;
+    }
+
     public void UpdateLives(int currentLives)
     {
         // display img sprite
         // give it a new one based on currentLives index
-        _livesImage.sprite = _livesSprites[currentLives];
+        _livesImage.sprite = _livesSprites[currentLives]; // PROBLEM HERE index out of bounds
         if (currentLives == 0)
         {
             GameOverSequence();
         }
     }
+
     void GameOverSequence()
     {
         _gameOverText.gameObject.SetActive(true);
@@ -46,6 +58,7 @@ public class UIManager : MonoBehaviour
             gm.GameOver();
         }
     }
+
     IEnumerator GameOverFlickerRoutine()
     {
         while (true)

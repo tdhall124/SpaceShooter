@@ -9,16 +9,12 @@ public class Enemy : MonoBehaviour
     private Player _player;
 
     private Animator _animExplosion;
-
     [SerializeField] private AudioSource _audioSourceExplosion;
-    [SerializeField] private AudioSource _audioSourceLaser;
 
     [SerializeField] private GameObject _laserPrefab;
+    [SerializeField] private AudioSource _audioSourceLaser;
 
     [SerializeField] private float _fireRate = 3.0f;
-    //value we are going to use to compare Time.time which is
-    //how long the game has been running
-  
     private float _canFire = -1;
 
     private void Start()
@@ -67,27 +63,46 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Player")
         {
             Player player = other.GetComponent<Player>();
-            
+
+            _speed = 0;
+            Destroy(GetComponent<Collider2D>());
+
             if (player != null)
                 player.Damage();
+            
             _animExplosion.SetTrigger("OnEnemyDeath");
-            _speed = 0;
             _audioSourceExplosion.Play();
-            Destroy(this.gameObject, 2.8f);
+
+            Destroy(this.gameObject, 2f);
         }
         if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
+            _speed = 0;
+            Destroy(GetComponent<Collider2D>());
+
             if (_player != null)
             {
                 _player.UpdateScore(10);
             }
             _animExplosion.SetTrigger("OnEnemyDeath");
+            _audioSourceExplosion.Play();
+            
+            Destroy(this.gameObject, 2f);
+        }
+        if (other.tag == "MagicFlameBomb")
+        {
+            Destroy(other.gameObject);
             _speed = 0;
+            Destroy(GetComponent<Collider2D>());
+            if (_player != null)
+            {
+                _player.UpdateScore(10);
+            }
+            _animExplosion.SetTrigger("OnEnemyDeath");
             _audioSourceExplosion.Play();
 
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
+            Destroy(this.gameObject, 2f);
         }
     }
 }
